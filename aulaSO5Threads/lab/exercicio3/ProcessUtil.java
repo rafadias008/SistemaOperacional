@@ -1,0 +1,12 @@
+package exercicio3;
+
+public class ProcessUtil {
+    public static void atrasar(int tempo){
+        int tempoAtraso = tempo * 1000;
+        try{
+            Thread.sleep(tempoAtraso);
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+    }
+}
