@@ -7,7 +7,7 @@ public class Produtor implements Runnable{
     public Produtor(BufferCircular buffer){
         this.buffer = buffer;
     }
-    
+
     @Override
     public void run(){
         int dado = 0;

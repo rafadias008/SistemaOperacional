@@ -14,30 +14,43 @@ public class BufferCircular{
         contador = 0;
     }
 
-    public void inserir(int item){
+    public synchronized void inserir(int item){
         int cicloEspera = 0;
 
         while(contador == BUFFER_SIZE){
-            System.out.print(cicloEspera++ + "do produtor\r");
-            ; //espera ocupadada
+            //System.out.print(cicloEspera++ + "do produtor\r");
+            //; //espera ocupadada
+            try{
+                wait();
+            } catch (InterruptedException e){
+                e.printStackTrace();
+            }
         }
+
         buffer[in] = item;
         in = (in + 1) % BUFFER_SIZE;
         contador++;
         System.out.print("\nProdutor: contador: " + contador);
+        notify();
     }
 
-    public int remover(){
-        cicloEspera = 0;
+    public synchronized int remover(){
+        int cicloEspera = 0;
         
         while(contador == 0){
-            System.out.print(cicloEspera++ + "do Consumidor\r");
-            ; // espera ocupada
+            //System.out.print(cicloEspera++ + "do Consumidor\r");
+            //; //espera ocupadada
+            try{
+                wait();
+            } catch (InterruptedException e){
+                e.printStackTrace();
+            }
         }
         int valor = buffer[out];
         out = (out + 1) % BUFFER_SIZE;
         contador--;
         System.out.print("\nConsumidor: Contador: " + contador);
+        notify();
         return valor;
     }
 }

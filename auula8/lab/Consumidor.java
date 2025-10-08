@@ -1,3 +1,5 @@
+package lab;
+
 public class Consumidor implements Runnable{
 
     private BufferCircular buffer;
